@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>StarString弹幕姬</title>
+        <link rel="stylesheet" href="https://cdn.w3cbus.com/library/mdui/1.0.2/css/mdui.min.css"/>
+        <link rel="stylesheet" href="main.css">
+        <script src="https://cdn.w3cbus.com/library/mdui/1.0.2/js/mdui.min.js"></script>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://cdn.staticfile.org/pako/1.0.10/pako.min.js"></script>
+        <script src="https://www.layuiweb.com/res/layui/release/layer/dist/layer.js-v=351-1.js"></script>
+        <script>
+            globalThis.QueueWindow = {};
+            globalThis.queue = [];
+            window.addEventListener("message",function(msg){
+              queue = JSON.parse(msg.data)
+            })
+        </script>
+        <!-- 有先后依赖顺序的 -->
+        <style>
+          ::-webkit-scrollbar {
+            display: none; /* Chrome Safari */
+          }
+        </style>
+        <script src="pageRender.js"></script>
+        <script src="DanMu.js"></script>
+        <script src="PageControler.js"></script>
+</head>
+<body class="mdui-theme-primary-indigo mdui-appbar-with-toolbar mdui-theme-accent-pink">
+  <!-- 隐藏控件，给后端传参的 -->
+  <!-- config -->
+    <div style="display:none"> 
+      <input type="hidden" id="RealRoomID">
+      <!-- 进直播间的播报 -->
+      <input type="hidden" id="ReadNameWhenEnter">
+        
+      <input type="hidden" id="ReadNameWhenGift">
+    </div>
+    <div class="mdui-toolbar mdui-color-theme mdui-appbar-fixed" style="-webkit-app-region: drag" >
+        <a id="OpenDrawer" class="mdui-btn mdui-btn-icon" style="-webkit-app-region: no-drag"><i class="mdui-icon material-icons">menu</i></a>
+        <span class="mdui-typo-title">StarString弹幕姬</span>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="javascript:window.close();" class="mdui-btn mdui-btn-icon" style="-webkit-app-region: no-drag"><i class="mdui-icon material-icons">close</i></a>
+    </div>
+    <div class="mdui-drawer" id="drawer" style="-webkit-app-region: no-drag">
+        <ul class="mdui-list">
+          <!-- <li class="mdui-list-item mdui-ripple">
+            <div class="mdui-row">
+                <div class="mdui-col-xs-3" id="UserFace">{{这里是用户的头像}}</div>
+                <div class="mdui-col-xs-3 mdui-typo-title-opacity" style="text-align: center;"><br><div id="UserName"></div></div>
+            </div>
+          </li>
+          <li class="mdui-subheader">关联bilibili账号</li> -->
+          <li class="mdui-list-item mdui-ripple" mdui-dialog="{target: '#Setting'}">
+            <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
+            <div class="mdui-list-item-content">设置</div>
+          </li>
+          <!-- <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">account_circle</i>
+            <div class="mdui-list-item-content">登录bilibili账号</div>
+          </li> -->
+          <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">error</i>
+            <div class="mdui-list-item-content" mdui-dialog="{target: '#AutherInfo'}">作者信息</div>
+          </li>
+          <li class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">laptop_windows</i>
+            <div class="mdui-list-item-content" id="CreateQueueWindows">创建队列窗口</div>
+          </li>
+        </ul>
+      </div>  
+      <!-- <script> var inst = new mdui.Dialog('#dialog'); </script> -->
+      <div class="mdui-dialog" id="Setting">
+        <div class="mdui-dialog-title">通用设置</div>
+        <div class="mdui-dialog-content">
+          <div class="mdui-textfield">
+            <input type="email" id="RoomIDInput" class="mdui-textfield-input" placeholder="直播间ID"/>
+            <div class="mdui-textfield-helper">直接把网址复制进来就可以了</div>
+          </div>
+        </div>
+        <div class="mdui-dialog-actions">
+          <!-- <button class="mdui-btn mdui-ripple" mdui-dialog-close>确定</button> -->
+          <button class="mdui-btn mdui-ripple" mdui-dialog-confirm id="SettingConfirm">确定</button>
+        </div>
+      </div>
+      <div class="mdui-dialog" id="AutherInfo">
+        <div class="mdui-dialog-title">通用设置</div>
+        <div class="mdui-dialog-content">
+          <div class="mdui-typo-title">作者: 多玩幻灵qwq</div>
+          <!-- <a class="mdui-btn" href="https://space.bilibili.com/503423945">个人主页</a> -->
+        </div>
+        <div class="mdui-dialog-actions">
+          <!-- <button class="mdui-btn mdui-ripple" mdui-dialog-close>确定</button> -->
+          <button class="mdui-btn mdui-ripple" mdui-dialog-confirm >确定</button>
+        </div>
+      </div>
+      <button class="mdui-fab mdui-ripple mdui-color-pink-accent mdui-fab-fixed" id="DeleteQueue">
+        <i class="mdui-icon material-icons">delete</i>
+      </button>
+      <div id="DanMuContainer">
+
+      </div>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "name": "starstringdanmuclient",
+  "version": "1.0.0",
+  "description": "一个能够在浏览器之外显示弹幕的客户端 能够实现看/发/自动回复弹幕",
+  "main": "main.js",
+  "scripts": {
+    "go": "npx electron .",
+    "packager": "npx electron-packager ./ StarStringDanMuClient --win --out --overwrite --ignore=.git --ignore=node_modules",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "electron-builder --win"
+  },
+  "config": {
+    "electron_mirror": "https://npmmirror.com/mirrors/electron/"
+  },
+  "author": "多玩幻灵qwq",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^17.2.0",
+    "electron-builder": "^23.0.3"
+  },
+  "build": {
+    "appId": "StarString.DanMuClient.Main",
+    "win": {
+      "target": "nsis"
+    },
+    "extraResources": {
+      "from":"./config.json",
+      "to":"../"
+    },
+    "nsis": {
+      "oneClick": false
+  }
+  }
+}

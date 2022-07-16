@@ -1,0 +1,22 @@
+.animated {
+    animation-duration: 1.5s !important;
+    animation-fill-mode: both !important;
+    animation-timing-function: cubic-bezier(0.42, 0, 0, 0.98);
+}
+@keyframes fadeInLeft
+{
+    from {
+        opacity: 0;
+        -webkit-transform: translate(-300px,0); 
+        /* transform: stranslate(-1000px,0);  */
+    }
+    to {
+        opacity:1;
+        -webkit-transform: translate(10px,0); 
+        /* transform: stranslate(10px,0);  */
+    }
+}
+ 
+.fadeInLeft {
+    animation-name: fadeInLeft;
+}
